@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joylyn Quintana — Customer Lifecycle Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a1628;
+    --navy-mid: #0f2040;
+    --teal: #00bfa5;
+    --teal-dim: #00897b;
+    --teal-pale: #e0f5f2;
+    --gold: #e6b554;
+    --gold-light: #fdf3dc;
+    --cream: #f5f7fa;
+    --white: #ffffff;
+    --text: #1a2a3a;
+    --muted: #546e7a;
+    --border: #dde6ee;
+    --rule: #c5d5df;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    color: var(--text);
+    background: var(--cream);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--navy);
+    color: white;
+    padding: 80px 40px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -100px;
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,191,165,0.08);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; right: 80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,191,165,0.05);
+  }
+  .teal-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--teal);
+  }
+  .hero-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+  .hero h1 em { font-style: italic; color: rgba(255,255,255,0.45); }
+  .hero-subtitle {
+    font-size: 17px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.65);
+    max-width: 540px;
+    margin: 18px 0 36px;
+    line-height: 1.65;
+  }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; }
+  .hero-meta-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,0.5); }
+  .hero-meta-item .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+
+  /* SECTION */
+  .section { max-width: 860px; margin: 0 auto; padding: 64px 40px; }
+  .section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--teal-dim); margin-bottom: 12px;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 36px);
+    font-weight: 700; line-height: 1.15; color: var(--navy); margin-bottom: 28px;
+  }
+  .intro-text { font-size: 15.5px; color: var(--text); max-width: 640px; line-height: 1.75; }
+
+  /* PULL QUOTE */
+  .pull-quote { border-left: 3px solid var(--teal); padding: 4px 0 4px 28px; margin: 32px 0; }
+  .pull-quote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px; font-style: italic; font-weight: 400;
+    color: var(--navy-mid); line-height: 1.6;
+  }
+
+  /* MATCH GRID */
+  .match-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; background: var(--border);
+    border: 1px solid var(--border); border-radius: 12px;
+    overflow: hidden; margin-top: 32px;
+  }
+  .match-header { padding: 16px 22px; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+  .match-header.wire { background: var(--navy); color: var(--teal); }
+  .match-header.me   { background: var(--teal-dim); color: white; }
+  .match-cell { padding: 14px 22px; font-size: 14px; line-height: 1.6; }
+  .match-cell.wire { background: var(--white); color: var(--navy); }
+  .match-cell.me   { background: #f0fbf9; color: #1a3330; }
+  .match-cell.me strong { color: var(--teal-dim); font-weight: 700; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 32px; margin-top: 32px; }
+  .timeline::before {
+    content: ''; position: absolute; left: 7px; top: 8px; bottom: 8px;
+    width: 1px; background: var(--rule);
+  }
+  .tl-item { position: relative; margin-bottom: 36px; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -25px; top: 8px;
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--teal); border: 2px solid var(--white);
+    box-shadow: 0 0 0 1px var(--teal);
+  }
+  .tl-item.anchor::before { background: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+  .tl-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
+  .tl-company { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--teal-dim); }
+  .tl-years { font-size: 12px; color: var(--muted); font-weight: 400; white-space: nowrap; }
+  .tl-role { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 8px; line-height: 1.25; }
+  .tl-body { font-size: 14px; color: var(--text); line-height: 1.65; }
+  .tl-wins { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+  .tl-win { display: flex; gap: 10px; font-size: 13.5px; color: var(--text); line-height: 1.55; }
+  .tl-win::before { content: '→'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* STATS */
+  .stats-bar {
+    background: var(--navy-mid);
+    border-top: 1px solid rgba(0,191,165,0.2);
+    border-bottom: 1px solid rgba(0,191,165,0.2);
+    padding: 52px 40px;
+  }
+  .stats-inner {
+    max-width: 860px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 40px;
+  }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 46px; font-weight: 700; color: var(--teal); line-height: 1; margin-bottom: 8px; }
+  .stat-label { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.45); line-height: 1.45; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 32px; }
+  .skill-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; }
+  .skill-card-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--teal-pale); display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .skill-card-icon svg { width: 18px; height: 18px; stroke: var(--teal-dim); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .skill-card h3 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tag { font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 100px; background: var(--teal-pale); color: var(--teal-dim); }
+  .tag.gold { background: var(--gold-light); color: #7a5a10; }
+
+  /* APPROACH */
+  .approach-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  .approach-card { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 24px; }
+  .approach-num { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; color: var(--teal-pale); line-height: 1; margin-bottom: 10px; user-select: none; }
+  .approach-card h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+  .approach-card p { font-size: 13.5px; color: var(--muted); line-height: 1.65; }
+
+  /* KAIZEN */
+  .kaizen-callout {
+    background: var(--navy); border: 1px solid rgba(0,191,165,0.2);
+    border-radius: 12px; padding: 36px 40px; margin-top: 32px;
+    position: relative; overflow: hidden;
+  }
+  .kaizen-callout::after {
+    content: '"'; position: absolute; right: 30px; top: -20px;
+    font-family: 'Playfair Display', serif; font-size: 180px;
+    color: rgba(0,191,165,0.07); line-height: 1;
+    pointer-events: none; user-select: none;
+  }
+  .kaizen-label { font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal); margin-bottom: 14px; }
+  .kaizen-callout blockquote {
+    font-family: 'Playfair Display', serif; font-size: 18px;
+    font-style: italic; color: rgba(255,255,255,0.85);
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+
+  /* COMMUNITY */
+  .community-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .community-card {
+    border-left: 3px solid var(--teal); padding: 16px 20px;
+    background: var(--white); border-radius: 0 8px 8px 0;
+    border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .community-card h3 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .community-card p { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* FOOTER */
+  .footer {
+    background: var(--navy); border-top: 1px solid rgba(0,191,165,0.15);
+    color: rgba(255,255,255,0.35); padding: 32px 40px;
+    text-align: center; font-size: 12px; letter-spacing: 0.06em;
+  }
+  .footer strong { color: rgba(255,255,255,0.65); }
+
+  @media (max-width: 640px) {
+    .hero, .stats-bar { padding-left: 24px; padding-right: 24px; }
+    .section { padding: 48px 24px; }
+    .match-grid, .approach-grid, .community-grid { grid-template-columns: 1fr; }
+    .match-header.wire, .match-cell.wire { display: none; }
+    .kaizen-callout { padding: 28px 24px; }
+    .kaizen-callout blockquote { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="teal-line"></div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Customer Lifecycle Manager · Wire 3 · Daytona Beach, FL</p>
+    <h1>Joylyn<br><em>Quintana</em></h1>
+    <p class="hero-subtitle">Lifecycle strategist and retention operator with 15+ years building the programs that keep customers connected — and invested in staying.</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="dot"></span> Port Orange, FL</div>
+      <div class="hero-meta-item"><span class="dot"></span> Telecom · Subscription · Recurring Revenue</div>
+      <div class="hero-meta-item"><span class="dot"></span> Strategy through execution, built from zero</div>
+    </div>
+  </div>
+</header>
+
+<!-- THE MATCH -->
+<section style="background: var(--white); padding: 0;">
+  <div class="section">
+    <p class="section-label">The Match</p>
+    <h2>What Wire 3 needs.<br>What I've already done.</h2>
+    <p class="intro-text">This role is Wire 3's first dedicated lifecycle position — someone who defines the roadmap, builds the function, and stays hands-on. Below is a direct look at how my background maps to what you're building.</p>
+
+    <div class="match-grid">
+      <div class="match-header wire">Wire 3 Needs</div>
+      <div class="match-header me">What I've Done</div>
+
+      <div class="match-cell wire">Build the full post-sale lifecycle journey from scratch — no function to inherit</div>
+      <div class="match-cell me">Stood up lifecycle communication programs at CenturyLink and Charter. <strong>No playbook. Just results.</strong></div>
+
+      <div class="match-cell wire">Own churn prevention through usage and engagement signals — not just reaction</div>
+      <div class="match-cell me">Led proactive re-engagement at Ingenovis; segmented inactive customers at 6- and 12-month thresholds before churn occurred</div>
+
+      <div class="match-cell wire">Win-back campaigns — test offers, timing, messaging, find what brings people back</div>
+      <div class="match-cell me">Created one of CenturyLink's <strong>top-performing win-back campaigns</strong>, managing $18M in budgets reaching 1M+ households monthly</div>
+
+      <div class="match-cell wire">Follow the 6-step framework — objective, hypothesis, measure, test, scale, retro</div>
+      <div class="match-cell me">Kaizen continuous improvement is core to how I work. Ran controlled testing cycles at CenturyLink with defined evaluation periods before any program scaled</div>
+
+      <div class="match-cell wire">Drive ARPU growth through upsell and cross-sell journeys</div>
+      <div class="match-cell me">Contributed to a <strong>14.3% ARPU improvement</strong> at Charter through lifecycle communication and product education initiatives</div>
+
+      <div class="match-cell wire">Comfort with AI tools — Claude, HubSpot AI, Gemini — to increase throughput and quality</div>
+      <div class="match-cell me">Already AI-augmented daily. Claude, Gemini, and ChatGPT are active parts of my workflow — not experiments</div>
+
+      <div class="match-cell wire">Strong copywriting — targeted, behavioral, conversion-oriented, not templates</div>
+      <div class="match-cell me"><strong>Hispanic Advertising Age Creative Award</strong> for direct marketing — recognized for creative impact and craft. Writing that moves people is a discipline developed over years, not a by-product of the job.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat">
+      <div class="stat-num">15+</div>
+      <div class="stat-label">Years in Lifecycle & Retention</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1M+</div>
+      <div class="stat-label">Households Reached Monthly</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$18M</div>
+      <div class="stat-label">Campaign Budgets Managed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">14.3%</div>
+      <div class="stat-label">ARPU Lift at Charter</div>
+    </div>
+  </div>
+</div>
+
+<!-- CAREER TIMELINE -->
+<section style="background: var(--cream); padding: 0;">
+  <div class="section">
+    <p class="section-label">Career Story</p>
+    <h2>The experience<br>that built this skillset.</h2>
+
+    <div class="timeline">
+
+      <div class="tl-item anchor">
+        <div class="tl-header">
+          <span class="tl-company">TownSites</span>
+          <span class="tl-years">2024 – Present</span>
+        </div>
+        <div class="tl-role">Marketing & Business Consultant — Florida & Colorado</div>
+        <div class="tl-body">Developing customer engagement and communication strategies for local businesses — visibility, retention, referrals, and repeat business. Building email campaigns, newsletters, and automated workflows. Using Claude, Gemini, and ChatGPT as daily tools.</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-company">Ingenovis Health</span>
+          <span class="tl-years">2023 – 2024</span>
+        </div>
+        <div class="tl-role">Client Marketing Manager — Denver, CO</div>
+        <div class="tl-body">Healthcare staffing. Led demand generation and customer engagement through email marketing and data-driven re-engagement initiatives.</div>
+        <div class="tl-wins">
+          <div class="tl-win">Identified retention gaps where customers were acquired but never nurtured — built the case and the strategy for fixing it</div>
+          <div class="tl-win">Segmented inactive customers at 6- and 12-month thresholds to drive proactive outreach before churn occurred</div>
+          <div class="tl-win">Led weekly performance reviews applying continuous improvement to communication and response trends</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-company">Pall Water</span>
+          <span class="tl-years">2021 – 2022</span>
+        </div>
+        <div class="tl-role">Global Product Marketing Manager — Denver, CO</div>
+        <div class="tl-body">Filtration and purification solutions. Led Voice of the Customer initiatives globally, used Salesforce CRM to identify stalling opportunities and re-engage at-risk accounts.</div>
+        <div class="tl-wins">
+          <div class="tl-win">Applied 5 Whys root-cause analysis to complex sales cycles to surface where customer engagement broke down and why</div>
+          <div class="tl-win">Built messaging grounded in deep customer understanding — who the customer is, what they need, and why this solution over others</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-company">Charter Communications</span>
+          <span class="tl-years">2019 – 2021</span>
+        </div>
+        <div class="tl-role">Senior Manager, Product Marketing Operations — Denver, CO</div>
+        <div class="tl-body">Broadband, cable, and internet services. Built lifecycle communication strategies for onboarding, education, engagement, and retention.</div>
+        <div class="tl-wins">
+          <div class="tl-win"><strong>14.3% ARPU improvement</strong> through lifecycle communication, product education, and sales enablement</div>
+          <div class="tl-win">Led formal Voice of the Customer programs — understanding customer pain points and motivations was the foundation for every initiative</div>
+          <div class="tl-win">Ran iterative testing on communication timing, onboarding workflows, and engagement strategies using Kaizen methodology</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-header">
+          <span class="tl-company">CenturyLink / Lumen</span>
+          <span class="tl-years">2007 – 2014</span>
+        </div>
+        <div class="tl-role">Marketing Manager — Denver, CO</div>
+        <div class="tl-body">Residential and business internet, networking, and communications. Large-scale lifecycle marketing across a subscriber base of millions — the role that shaped everything.</div>
+        <div class="tl-wins">
+          <div class="tl-win">Managed <strong>$18M in campaign budgets</strong> — acquisition, retention, upsell, and win-back across 1M+ households monthly</div>
+          <div class="tl-win">Created one of the company's <strong>top-performing win-back campaigns</strong>, built from the ground up</div>
+          <div class="tl-win">Ran extensive controlled testing: messaging, timing, creative, offers, channels — evaluated rigorously before scaling</div>
+          <div class="tl-win"><strong>Hispanic Advertising Age Creative Award</strong> — recognized for direct marketing campaign impact</div>
+          <div class="tl-win">Reduced churn through customer-focused lifecycle communication and iterative optimization</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW I WORK -->
+<section style="background: var(--white); padding: 0;">
+  <div class="section">
+    <p class="section-label">How I Work</p>
+    <h2>The approach Wire 3's<br>6-step framework deserves.</h2>
+
+    <div class="approach-grid">
+      <div class="approach-card">
+        <div class="approach-num">01</div>
+        <h3>Understand the customer before building anything</h3>
+        <p>Who are they? What pain brought them here, and what would make them leave? I've run formal VOC programs at Charter and Pall Water, and I bring that customer-first discipline to every lifecycle decision. The program follows the insight — never the other way around.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-num">02</div>
+        <h3>Know your differentiation — and build messaging around it</h3>
+        <p>Understanding the customer is half the equation. The other half is knowing what your solution uniquely solves and why it's the right answer for them specifically. That clarity is what makes lifecycle communication earn attention instead of just filling an inbox.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-num">03</div>
+        <h3>Hypothesize, test, scale — never skip the middle step</h3>
+        <p>Kaizen and 5 Whys methodology means every program starts with a clear objective and a defined measurement plan. I've run controlled testing cycles for years — evaluated before scaled, every time.</p>
+      </div>
+      <div class="approach-card">
+        <div class="approach-num">04</div>
+        <h3>Read the signals before churn happens</h3>
+        <p>Segmented by engagement timelines and behavioral indicators — not waiting for the cancel signal. At Ingenovis I rebuilt re-engagement strategy around proactive outreach at defined thresholds, not reactive damage control after the fact.</p>
+      </div>
+    </div>
+
+    <div class="kaizen-callout">
+      <p class="kaizen-label">Why Wire 3's Framework Resonates</p>
+      <blockquote>
+        "Wire 3's 6-step campaign framework mirrors how I've approached process improvement throughout my career through Kaizen methodology. At Pall Water, we used root-cause analysis to identify why onboarding projections underperformed — evaluate, hypothesize, test, review, refine. That's not a new process for me. It's a standard I'm committed to, every time."
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section style="background: var(--cream); padding: 0;">
+  <div class="section">
+    <p class="section-label">Core Expertise</p>
+    <h2>The full toolkit.</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 0 0-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 0 1 5.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 0 1 9.288 0"/></svg>
+        </div>
+        <h3>Lifecycle Strategy</h3>
+        <div class="tag-list">
+          <span class="tag">Customer Journey</span><span class="tag">Churn Reduction</span>
+          <span class="tag">Win-Back</span><span class="tag">ARPU Growth</span>
+          <span class="tag">Onboarding</span><span class="tag">Segmentation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2z"/></svg>
+        </div>
+        <h3>Email & Automation</h3>
+        <div class="tag-list">
+          <span class="tag">HubSpot</span><span class="tag">Automated Flows</span>
+          <span class="tag">A/B Testing</span><span class="tag">Behavioral Triggers</span>
+          <span class="tag">MailChimp</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 19v-6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2zm0 0V9a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10m-6 0a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2m0 0V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <h3>Analytics & Reporting</h3>
+        <div class="tag-list">
+          <span class="tag">Churn KPIs</span><span class="tag">Engagement Trends</span>
+          <span class="tag">Salesforce CRM</span><span class="tag">Google Analytics</span>
+          <span class="tag">VOC Programs</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3>AI-Augmented Workflow</h3>
+        <div class="tag-list">
+          <span class="tag gold">Claude</span><span class="tag gold">HubSpot AI</span>
+          <span class="tag gold">Gemini</span><span class="tag gold">ChatGPT</span>
+          <span class="tag gold">Workflow Automation</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+        </div>
+        <h3>Telecom Experience</h3>
+        <div class="tag-list">
+          <span class="tag">Charter</span><span class="tag">CenturyLink / Lumen</span>
+          <span class="tag">Broadband</span><span class="tag">Internet Services</span>
+          <span class="tag">Subscriber Retention</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3>Process & Methodology</h3>
+        <div class="tag-list">
+          <span class="tag">Kaizen</span><span class="tag">5 Whys</span>
+          <span class="tag">Controlled Testing</span><span class="tag">Root-Cause Analysis</span>
+          <span class="tag">Iterative Optimization</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY -->
+<section style="background: var(--white); padding: 0;">
+  <div class="section">
+    <p class="section-label">Community & Connections</p>
+    <h2>Already active in Daytona.<br>Already invested in giving back.</h2>
+    <p class="intro-text">Giving back is a daily personal mission, not an occasional event — and it extends beyond volunteering. I'm currently active in the Daytona Beach BNI chapter, a structured weekly networking organization built around a simple philosophy: help others grow and they'll help you in return. Through BNI I've built genuine relationships with small and mid-sized local business owners across the area — the exact community Wire 3 serves. I'm also part of a women's professional network focused on mutual support, real growth, and lifting each other up.</p>
+    <p class="intro-text" style="margin-top: 16px;">I bring that same spirit to work: a positive attitude, genuine curiosity, and a habit of sharing what I'm learning with the people around me. When I find a better approach — a new AI workflow, a smarter segmentation strategy, a more effective way to communicate — my instinct is to pass it on, not hold it close.</p>
+
+    <div class="community-grid">
+      <div class="community-card">
+        <h3>Christ Church of Port Orange</h3>
+        <p>Cooking and delivering meals to families in immediate need — something I continue to do. A simple act that shows up when people need it most.</p>
+      </div>
+      <div class="community-card">
+        <h3>Women of Evergreen Businesses</h3>
+        <p>Part of a group that made immediate, no-barrier impact for people who couldn't wait for help — ensuring they could eat, keep a roof overhead, and get to work. Emergency assistance without the process getting in the way of the need.</p>
+      </div>
+      <div class="community-card">
+        <h3>Latina Initiative</h3>
+        <p>Mentoring teens on educational and career paths — school retention, college planning, and the kind of guidance that changes what someone believes is possible for themselves.</p>
+      </div>
+      <div class="community-card">
+        <h3>Colorado Coalition for the Homeless</h3>
+        <p>Supporting access to housing, healthcare, and employment — the practical infrastructure that helps people build stability and move forward with their lives.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING -->
+<section style="background: var(--navy); padding: 0;">
+  <div class="section" style="color:white;">
+    <p class="section-label" style="color:var(--teal);">The Opportunity</p>
+    <h2 style="color:white; margin-bottom:20px;">Already here.<br>Already invested.</h2>
+
+    <div class="pull-quote" style="border-left-color: rgba(0,191,165,0.45);">
+      <p style="color:rgba(255,255,255,0.78);">What draws me to Wire 3 isn't just that the role fits — it's that the company fits. A fiber provider built on transparency, genuine customer care, and real community roots is one worth bringing your best work to. I'm already connected in Daytona Beach, already committed to the community, and genuinely excited about what this role could become. That's not a common combination, and I don't take it lightly.</p>
+    </div>
+
+    <p style="font-size:14px; color:rgba(255,255,255,0.4); margin-top:28px;">
+      Bachelor of Science, Business Administration (Marketing) — University of Colorado, Boulder<br>
+      Port Orange, FL · Daytona Beach area
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <strong>Joylyn Quintana</strong> &nbsp;·&nbsp; Customer Lifecycle Manager &nbsp;·&nbsp; Port Orange, FL<br>
+  Prepared for Wire 3 · Daytona Beach, FL
+</footer>
+
+</body>
+</html>
